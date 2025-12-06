@@ -1,0 +1,25 @@
+import jwt from 'jsonwebtoken';
+import { config } from '../config';
+
+export interface TokenPayload {
+  userId: string;
+  role: string;
+}
+
+export const generateAccessToken = (payload: TokenPayload): string => {
+  return jwt.sign(payload, config.jwtSecret, { expiresIn: config.accessTokenExpiry });
+};
+
+export const generateRefreshToken = (payload: TokenPayload): string => {
+  return jwt.sign(payload, config.jwtRefreshSecret, { expiresIn: config.refreshTokenExpiry });
+};
+
+export const verifyAccessToken = (token: string): TokenPayload => {
+  return jwt.verify(token, config.jwtSecret) as TokenPayload;
+};
+
+export const verifyRefreshToken = (token: string): TokenPayload => {
+  return jwt.verify(token, config.jwtRefreshSecret) as TokenPayload;
+};
+
+
