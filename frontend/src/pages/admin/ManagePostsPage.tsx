@@ -255,7 +255,7 @@ export const ManagePostsPage: React.FC = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-slate-400 text-sm">
-                      {post.author.username}
+                      {post.author?.username || "Unknown"}
                     </td>
                     <td className="px-6 py-4 text-slate-400 text-sm">
                       {new Date(post.createdAt).toLocaleDateString()}

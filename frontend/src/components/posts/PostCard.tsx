@@ -61,7 +61,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <User className="w-4 h-4" />
-              <span>{post.author.username}</span>
+              <span>{post.author?.username || "Unknown"}</span>
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
