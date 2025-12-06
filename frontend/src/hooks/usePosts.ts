@@ -6,7 +6,6 @@ export const usePosts = (query: PostsQuery = {}) => {
   return useQuery<PostsResponse>({
     queryKey: ["posts", query],
     queryFn: () => postsApi.getAll(query),
-    keepPreviousData: true, // avoid losing list when searching/filtering
   });
 };
 

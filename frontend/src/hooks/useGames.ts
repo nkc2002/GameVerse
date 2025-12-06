@@ -6,7 +6,6 @@ export const useGames = (query: GamesQuery = {}) => {
   return useQuery<GamesResponse>({
     queryKey: ["games", query],
     queryFn: () => gamesApi.getAll(query),
-    keepPreviousData: true, // keep list while refetching to avoid UI flicker
   });
 };
 

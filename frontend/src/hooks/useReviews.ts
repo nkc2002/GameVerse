@@ -5,7 +5,6 @@ export const useReviews = (query: ReviewsQuery = {}) => {
   return useQuery({
     queryKey: ["reviews", query],
     queryFn: () => reviewsApi.getAll(query),
-    keepPreviousData: true,
   });
 };
 
@@ -42,7 +41,6 @@ export const useUpdateReview = () => {
     mutationFn: ({
       id,
       data,
-      gameId,
     }: {
       id: string;
       data: Partial<Review>;
@@ -64,7 +62,7 @@ export const useDeleteReview = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, gameId }: { id: string; gameId?: string }) =>
+    mutationFn: ({ id }: { id: string; gameId?: string }) =>
       reviewsApi.delete(id),
     onSuccess: (_res, variables) => {
       queryClient.invalidateQueries({ queryKey: ["reviews"], exact: false });

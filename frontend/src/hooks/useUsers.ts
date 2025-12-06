@@ -6,7 +6,6 @@ export const useUsers = (query: UsersQuery = {}) => {
   return useQuery<UsersResponse>({
     queryKey: ["users", query],
     queryFn: () => usersApi.getAll(query),
-    keepPreviousData: true, // keep list visible while refetching
   });
 };
 
