@@ -4,6 +4,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import path from "path";
 import { config } from "./config";
+import { connectDatabase } from "./config/database";
 import routes from "./routes";
 import { errorHandler } from "./middlewares/errorHandler";
 import { rateLimiter } from "./middlewares/rateLimiter";
@@ -33,6 +34,16 @@ if (config.nodeEnv === "development") {
 app.use(rateLimiter);
 
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+
+// Connect to database before processing API requests (for serverless)
+app.use("/api", async (_req, _res, next) => {
+  try {
+    await connectDatabase();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 app.use("/api", routes);
 

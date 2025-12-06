@@ -46,6 +46,7 @@ export const RatingStars: React.FC<RatingStarsProps> = ({
           return (
             <button
               key={index}
+              type="button"
               onClick={() => handleClick(index)}
               disabled={!interactive}
               className={`${
