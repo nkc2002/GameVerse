@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
-import { config } from '../config';
+import jwt, { SignOptions } from "jsonwebtoken";
+import { config } from "../config";
 
 export interface TokenPayload {
   userId: string;
@@ -7,11 +7,11 @@ export interface TokenPayload {
 }
 
 export const generateAccessToken = (payload: TokenPayload): string => {
-  return jwt.sign(payload, config.jwtSecret, { expiresIn: config.accessTokenExpiry });
+  return jwt.sign(payload, config.jwtSecret, { expiresIn: "15m" });
 };
 
 export const generateRefreshToken = (payload: TokenPayload): string => {
-  return jwt.sign(payload, config.jwtRefreshSecret, { expiresIn: config.refreshTokenExpiry });
+  return jwt.sign(payload, config.jwtRefreshSecret, { expiresIn: "7d" });
 };
 
 export const verifyAccessToken = (token: string): TokenPayload => {
@@ -21,5 +21,3 @@ export const verifyAccessToken = (token: string): TokenPayload => {
 export const verifyRefreshToken = (token: string): TokenPayload => {
   return jwt.verify(token, config.jwtRefreshSecret) as TokenPayload;
 };
-
-
