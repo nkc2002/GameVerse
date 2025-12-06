@@ -10,6 +10,9 @@ import { rateLimiter } from "./middlewares/rateLimiter";
 
 const app = express();
 
+// Trust proxy - required for Vercel/serverless environments
+app.set("trust proxy", 1);
+
 app.use(
   cors({
     origin: config.frontendUrl,
